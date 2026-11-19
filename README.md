@@ -185,7 +185,7 @@ All logging is protected by a pthread mutex, ensuring log messages from differen
 
 ## Dependencies
 
-- [corBase](https://github.com/SEAMWARE/corBase) - time functions and COR_VEC_SIZE
+- [corBase](https://github.com/SEAMWARE-cor/corBase) - time functions and COR_VEC_SIZE
 - pthread library
 
 ## License
