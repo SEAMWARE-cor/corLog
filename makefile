@@ -28,6 +28,7 @@ CFLAGS        = -O2 -Wall -Wextra -Werror -fPIC -fstack-protector-strong $(DFLAG
 
 LIB_SOURCES   = corLogInit.c               \
                 corLogGlobals.c            \
+                corLogRing.c               \
                 corLogOut.c                \
                 corLogTraceLevelCheck.c    \
                 corLogTraceLevelGet.c      \
@@ -64,7 +65,7 @@ TEST_LIBS     = ../corBase/libcorBase.a -lpthread
 # the staged file gets a new mtime, so whatever links it relinks. Copied and renamed, so a process
 # that has the .so mapped keeps the old file.
 #
-all: $(OBJDIR)/$(LIB) $(OBJDIR)/$(LIB_SO) $(TEST)
+all: $(OBJDIR)/$(LIB) $(OBJDIR)/$(LIB_SO) $(TEST) $(OBJDIR)/corLogRingTest
 	@cp -f $(OBJDIR)/$(LIB) $(LIB).tmp && mv -f $(LIB).tmp $(LIB)
 	@cp -f $(OBJDIR)/$(LIB_SO) $(LIB_SO).tmp && mv -f $(LIB_SO).tmp $(LIB_SO)
 
@@ -128,3 +129,12 @@ FORCE:
 .PHONY: all install di ci clean FORCE
 
 -include $(DEPS)
+
+#
+# corLogRingTest - the in-memory ring; `make ringtest` runs it
+#
+$(OBJDIR)/corLogRingTest: corLogRingTest.c $(OBJDIR)/$(LIB)
+	$(CC) $(CFLAGS) $< $(OBJDIR)/$(LIB) $(TEST_LIBS) -o $@
+
+ringtest: $(OBJDIR)/corLogRingTest
+	@$(OBJDIR)/corLogRingTest 2>/dev/null | tail -1
