@@ -20,6 +20,7 @@
 #include "corBase/corTime.h"                  // corTimeGet, corTimeDiff
 #include "corLog/corLogGlobals.h"             // corLogFt, corLogSem, ...
 #include "corLog/corLogTraceLevelCheck.h"     // corLogTraceLevelCheck
+#include "corLog/corLogRing.h"                // corLogRingAdd
 #include "corLog/corLogOut.h"                 // Own interface
 
 
@@ -174,6 +175,9 @@ void corLogOut
     if (nb <= 0)
       fprintf(stderr, "Error writing trace line to stdout\n");
   }
+
+  // And in memory (corLogRingInit)
+  corLogRingAdd(comp, comps);
 
   pthread_mutex_unlock(&corLogMutex);
 

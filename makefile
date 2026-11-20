@@ -28,6 +28,7 @@ CFLAGS        = -O2 -Wall -Wextra -Werror -fPIC -fstack-protector-strong $(DFLAG
 
 LIB_SOURCES   = corLogInit.c               \
                 corLogGlobals.c            \
+                corLogRing.c               \
                 corLogOut.c                \
                 corLogTraceLevelCheck.c    \
                 corLogTraceLevelGet.c      \
