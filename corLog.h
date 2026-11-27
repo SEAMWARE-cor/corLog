@@ -27,6 +27,7 @@
 // COR_T  - trace messages,   depending on the trace level 'tLevel'
 // COR_V  - verbose messages, depending on the variable 'corLogVerbose'
 // COR_I  - info messages,    depending on the variable 'corLogInfo'
+// COR_I_ALWAYS - an info message written whatever 'corLogInfo' is
 // COR_F  - FIXME messages,   depending on the variable 'corLogFixme'
 // COR_W  - warnings
 // COR_E  - errors
@@ -77,6 +78,11 @@ static const char corLogTracesCompiledIn[] __attribute__((used)) = "COR_T_ON:tra
 #endif
 #define COR_V(...)           COR_LOG_IF(corLogVerbose == true,  'V', -1,     __VA_ARGS__)
 #define COR_I(...)           COR_LOG_IF(corLogInfo    == true,  'I', -1,     __VA_ARGS__)
+//
+// COR_I_ALWAYS - an I line written whether or not info lines are on: a line the program owes its operator
+// whatever the log level (a log file trimmed, and why) - the aux 1 tells corLogOut not to gate it
+//
+#define COR_I_ALWAYS(...)    corLogOut(__FILE__, __LINE__, __FUNCTION__, 'I', 1,      __VA_ARGS__)
 #define COR_W(...)           corLogOut(__FILE__, __LINE__, __FUNCTION__, 'W', -1,     __VA_ARGS__)
 #define COR_E(...)           corLogOut(__FILE__, __LINE__, __FUNCTION__, 'E', -1,     __VA_ARGS__)
 #define COR_X(eCode, ...)    corLogOut(__FILE__, __LINE__, __FUNCTION__, 'X', eCode,  __VA_ARGS__)

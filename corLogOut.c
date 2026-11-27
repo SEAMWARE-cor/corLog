@@ -68,7 +68,7 @@ void corLogOut
   if ((type == 'T')  && (corLogTraceLevelCheck(aux) == false))    return;
   if ((type == 'V')  && (corLogVerbose              == false))    return;
   if ((type == 'F')  && (corLogFixme                == false))    return;
-  if ((type == 'I')  && (corLogInfo                 == false))    return;
+  if ((type == 'I')  && (corLogInfo                 == false) && (aux != 1))    return;   // aux 1: COR_I_ALWAYS
 
   //
   // Log Line:
